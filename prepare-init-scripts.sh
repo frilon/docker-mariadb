@@ -3,6 +3,8 @@
 # shellcheck source=.env-db-init
 source .env-db-init
 
+mkdir -p ./mariadb/init
+
 if [ ${#db1[@]} -ge 5 ]; then
     while read -r db_name db_tables db_username db_host db_password db_privileges; do
         sed s/REPLACE_DATABASE_NAME/"${db_name}"/g ./mariadb/template.sql >./mariadb/init/1.sql
