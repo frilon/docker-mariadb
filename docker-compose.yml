@@ -13,6 +13,8 @@ services:
     volumes:
       - ./mariadb/init/:/docker-entrypoint-initdb.d/
       - ./mysql_data/:/var/lib/mysql/
+    command: 
+      - --max_allowed_packet=1024M # Set max_allowed_packet to 256M (or any other value)
     #labels:
     #  - "traefik.enable=true"
     #  - "traefik.tcp.routers.mysql.rule=HostSNI(`*`)"
