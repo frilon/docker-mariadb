@@ -1,8 +1,10 @@
 version: "3"
 services:
   mariadb:
-    image: mariadb:10.7
+    image: mariadb:10.6
     container_name: mariadb
+    restart: unless-stopped
+    #env_file: .env
     environment:
       MARIADB_ROOT_PASSWORD: reallySafePassword
       #MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: yes
