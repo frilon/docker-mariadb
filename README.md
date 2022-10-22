@@ -14,6 +14,6 @@ You can connect into the MySQL either using a local `mysql` client via `mysql -u
 ```sh
 docker run --rm -it \
   --name mariadb_client \
-  --network \
-  traefik_ext mariadb:$(awk -F: '/image: / {print $NF}' docker-compose.yml) mysql -h mariadb -u root -p$(awk -F= '/MARIADB_ROOT_PASSWORD/ {print $NF}' .env)
+  --network traefik_ext \
+  mariadb:$(awk -F: '/image: / {print $NF}' docker-compose.yml) mysql -h mariadb -u root -p$(awk -F= '/MARIADB_ROOT_PASSWORD/ {print $NF}' .env)
 ```
