@@ -1,3 +1,4 @@
+.env
 .env-db-init
 ./mysql_data/**
 ./mariadb/init/*.sql

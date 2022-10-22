@@ -5,21 +5,17 @@ services:
     container_name: mariadb
     restart: unless-stopped
     env_file: .env
-    #environment:
-    #  MARIADB_ROOT_PASSWORD: reallySafePassword
-    #  #MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: yes
-    #  #MARIADB_RANDOM_ROOT_PASSWORD: yes
-    #  #MARIADB_ROOT_HOST: '%'
     ports:
       - 127.0.0.1:3306:3306
     volumes:
       - ./mariadb/init/:/docker-entrypoint-initdb.d/
-      - ./mysql_data/:/var/lib/mysql/
+      # Use a volume for MySQL data
+      - mysql_data:/var/lib/mysql/
+      # Or mount MySQL data directly
+      #- ./mysql_data/:/var/lib/mysql/
     command: 
       - --max_allowed_packet=1024M # Set max_allowed_packet to 256M (or any other value)
-    #labels:
-    #  - "traefik.enable=true"
-    #  - "traefik.tcp.routers.mysql.rule=HostSNI(`*`)"
-    #  - "traefik.tcp.routers.mysql.entrypoints=mysql"
-    #  - "traefik.tcp.routers.mysql.service=mariadb"
-    #  - "traefik.tcp.services.mariadb.loadbalancer.server.port=3306"
+
+# Comment out if you want to mount data directly
+volumes:
+  mysql_data:
