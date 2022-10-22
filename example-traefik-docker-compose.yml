@@ -1,0 +1,36 @@
+version: "3"
+
+# Check out my Traefik Docker Repo at
+# https://github.com/frilon/docker-traefik
+
+services:
+  mariadb:
+    image: mariadb:10.6
+    container_name: mariadb
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      # Use a volume for MySQL data
+      - mysql_data:/var/lib/mysql/
+      # Or mount MySQL data directly
+      #- ./mysql_data/:/var/lib/mysql/
+    command:
+      - --max_allowed_packet=1024M # Set max_allowed_packet to 256M (or any other value)
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=treafik_ext"
+      - "traefik.tcp.routers.mariadb.rule=HostSNI(`*`)"
+      - "traefik.tcp.routers.mariadb.service=mariadb"
+      - "traefik.tcp.services.mariadb.loadbalancer.server.port=3306"
+    volumes:
+      - mariadb_data
+    networks:
+      - traefik_ext
+
+# Comment out if you want to mount data directly
+volumes:
+  mariadb_data:
+
+networks:
+  traefik_ext:
+    external: true
