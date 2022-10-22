@@ -22,8 +22,6 @@ services:
       - "traefik.tcp.routers.mariadb.rule=HostSNI(`*`)"
       - "traefik.tcp.routers.mariadb.service=mariadb"
       - "traefik.tcp.services.mariadb.loadbalancer.server.port=3306"
-    volumes:
-      - mariadb_data
     networks:
       - traefik_ext
 
