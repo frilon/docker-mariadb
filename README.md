@@ -17,3 +17,12 @@ docker run --rm -it \
   --network traefik_ext \
   mariadb:$(awk -F: '/image: / {print $NF}' docker-compose.yml) mysql -h mariadb -u root -p$(awk -F= '/MARIADB_ROOT_PASSWORD/ {print $NF}' .env)
 ```
+
+You can test the connection to an initialized database this way:
+```sh
+source .env-db-init
+docker run --rm -it \
+  --name mariadb_client \
+  --network traefik_ext \
+  mariadb:$(awk -F: '/image: / {print $NF}' docker-compose.yml) mysql -h mariadb -u${db1[2]} -p${db1[4]} ${db1[0]}
+```
