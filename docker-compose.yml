@@ -4,12 +4,12 @@ services:
     image: mariadb:10.6
     container_name: mariadb
     restart: unless-stopped
-    #env_file: .env
-    environment:
-      MARIADB_ROOT_PASSWORD: reallySafePassword
-      #MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: yes
-      #MARIADB_RANDOM_ROOT_PASSWORD: yes
-      #MARIADB_ROOT_HOST: '%'
+    env_file: .env
+    #environment:
+    #  MARIADB_ROOT_PASSWORD: reallySafePassword
+    #  #MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: yes
+    #  #MARIADB_RANDOM_ROOT_PASSWORD: yes
+    #  #MARIADB_ROOT_HOST: '%'
     ports:
       - 127.0.0.1:3306:3306
     volumes:
