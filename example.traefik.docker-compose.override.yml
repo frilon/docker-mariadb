@@ -1,0 +1,22 @@
+services:
+  mariadb:
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=traefik_ext
+
+      - traefik.http.routers.mariadb.tls=true
+      - traefik.http.routers.mariadb.tls.certResolver=cloudflare
+      #- traefik.tcp.routers.mariadb.service=mariadb
+
+      # TODO: Check why redirecting web to websecure does not work 
+      # if this is not commented out:
+      #- traefik.tcp.routers.mariadb.rule=HostSNI(`*`)
+
+      # Enable and change port, if not set to default (3306)
+      #- traefik.tcp.services.mariadb.loadbalancer.server.port=3306
+    networks:
+      - traefik_ext
+
+networks:
+  traefik_ext:
+    external: true
