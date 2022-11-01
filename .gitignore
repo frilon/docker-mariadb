@@ -1,5 +1,5 @@
 .env
 .env-db-init
-./mysql_data/**
-./mariadb/init/*.sql
+mysql_data/**
+mariadb/init/*.sql
 docker-compose.override.y*ml
