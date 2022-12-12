@@ -30,3 +30,13 @@ docker run --rm -it \
   --network traefik_ext \
   mariadb:$(awk -F: '/image: / {print $NF}' docker-compose.yml) mysql -h mariadb -u${db1[2]} -p${db1[4]} ${db1[0]}
 ```
+
+In case you receive an error, that the specified user is not allowed to neccent from `
+[ANY DOCKER IP]`, you could add or update the user's permissions while your inside the container `mariadb`.
+
+Example for the user `root`:
+```sh
+CREATE USER 'root'@'%';
+GRANT ALL PRIVILEGES ON *.* to 'root'@'%' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+```
